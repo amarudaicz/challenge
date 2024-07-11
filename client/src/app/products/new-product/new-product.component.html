@@ -1,0 +1,27 @@
+<section>
+    <div class="max-w-[900px] mx-auto p-4">
+        <h1 class="font-bold text-3xl text-center">Nuevo Producto</h1>
+
+        <div class="">
+            @if(success){
+            <span class="p-2 mb-2 block w-fit border-l-4 border-l-green-500 bg-green-200 rounded">
+                Producto creado correctamente
+            </span>
+            }@else if (failed) {
+            <span class="p-2 mb-2 block w-fit border-l-4 border-l-red-500 bg-red-300 rounded">
+                Ocurrió un error al crear el producto
+            </span>
+            }
+
+        </div>
+
+        <div class="flex gap-3 justify-between mb-3 borde-b border-slate-400">
+            <a routerLink="/" class="py-2 px-4 rounded bg-blue-600 text-white">Lista completa</a>
+        </div>
+
+
+        <app-form-new-edit (formSubmit)="postFormValue($event)"></app-form-new-edit>
+
+
+    </div>
+</section>

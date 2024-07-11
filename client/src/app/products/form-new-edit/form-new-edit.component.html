@@ -1,0 +1,72 @@
+<form class="flex flex-col gap-3" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="flex flex-col gap-1 ">
+        <label class="font-bold" for="name">Nombre <span *ngIf="productForm.get('name')?.invalid"
+                class="text-red-500">*</span></label>
+        <input class="py-2 px-3 border rounded border-slate-800" id="name" formControlName="name">
+    </div>
+
+    <div class="flex flex-col gap-1 ">
+        <label class="font-bold" for="price">Precio <span *ngIf="productForm.get('price')?.invalid"
+                class="text-red-500">*</span></label>
+        <input class="py-2 px-3 border rounded border-slate-800" id="price" type="number" formControlName="price">
+    </div>
+
+    <div class="flex flex-col gap-1 ">
+        <label class="font-bold" for="type">Tipo <span *ngIf="productForm.get('type')?.invalid"
+                class="text-red-500">*</span></label>
+        <select class="py-2 px-3 border rounded border-slate-800" formControlName="type">
+            @for (option of typeOptions; track $index) {
+            <option [value]="option">{{option}}</option>
+            }
+        </select>
+    </div>
+
+    <div class="flex flex-col gap-1 ">
+        <label class="font-bold" for="type">Imagen (url)</label>
+        <input class="py-2 px-3 border rounded border-slate-800" id="image" formControlName="image">
+    </div>
+
+
+
+    <div class="flex flex-col gap-1 ">
+        <label class="font-bold" for="isPromotion">Promoción</label>
+        <input type="checkbox" class="w-5 h-5 border rounded border-slate-800" id="isPromotion"
+            formControlName="isPromotion">
+    </div>
+
+    @if(productForm.get('isPromotion')?.value) {
+        <div class="flex flex-col gap-1 ">
+            <label class="font-bold" for="discount">Descuento</label>
+            <input class="py-2 px-3 border rounded border-slate-800" id="discount" type="number" formControlName="discount">
+        </div>
+    }
+
+    <div class="flex flex-col gap-1 ">
+        <label class="font-bold" for="status">Stock</label>
+        <input type="checkbox" class="w-5 h-5 border rounded border-slate-800" id="status" formControlName="status">
+    </div>
+
+
+    <div formArrayName="ingredients" class="flex flex-col gap-1">
+        <div class="flex flex-wrap items-center gap-2">
+            <label class="font-bold" for="ingredientName">Ingredientes <span
+                    *ngIf="productForm.get('ingredients')?.invalid" class="text-red-500">*</span></label>
+            <button type="button" (click)="addIngredient()"
+                class="font-bold px-3 py-2 text-sm  border rounded-full text-white bg-yellow-500">Nuevo +</button>
+        </div>
+
+        <div *ngFor="let ingredient of ingredients.controls; let i=index" [formGroupName]="i">
+            <div class="flex gap-1">
+                <input class="py-2 px-3 border rounded border-slate-800" id="ingredientName" formControlName="name">
+                <button type="button" class="font-bold text-sm bg-red-500 py-2 px-3 text-white rounded-full "
+                    (click)="removeIngredient(i)">Borrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex items-center gap-3 mt-4">
+        <button class="bg-green-600 rounded text-white py-2 px-4 " type="submit">Guardar</button>
+        <span *ngIf="productForm.invalid">Los campos marcados con <span class="text-red-500 font-bold">(*)</span> son
+            requeridos</span>
+    </div>
+</form>

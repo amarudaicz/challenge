@@ -1,0 +1,67 @@
+<section>
+    <div class="max-w-[900px] mx-auto">
+        <h1 class="my-3 text-center font-bold text-3xl">Products</h1>
+
+        <div class="flex flex-col">
+            @if (allProducts$ | async; as products) {
+
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="font-bold ">Total : {{products.length}}</h2>
+                    <a routerLink="new" class="py-2 px-4 rounded bg-blue-600 text-white">Nuevo Producto</a>
+                </div>
+
+            @for (p of products; track p._id; let i = $index) {
+            <div class="p-3 border-y border-slate-400">
+                <div class="flex items-center justify-center md:justify-between flex-wrap gap-4">
+
+                    <div class="">
+                        <span class="font-bold">#{{i + 1}}</span>
+                    </div>
+
+                    <div class="flex flex-col flex-1">
+                        <h6 class="font-bold">{{p.name}}</h6>
+                        <h6 class="font-bold">{{p.price | currency}}</h6>
+                        <div class="span text-gray-700">{{p.type}}</div>
+                    </div>
+
+                    <div class="flex-1 min-w-[100px]">
+                        <img [src]="p.image" [alt]="p.name" loading="lazy" class="rounded w-[100px]">
+                    </div>
+
+                    <div class="flex gap-2 justify-center">
+                        <button (click)="showDetailsProduct(p)" class="py-2 px-3 font-medium  border  border-blue-600 rounded hover:bg-opacity-60">
+                            Detalles
+                        </button>
+
+                        <a [routerLink]="['edit', p._id]" class="py-2 px-3 font-medium border border-neutral-800 rounded hover:bg-opacity-60">
+                            Editar
+                        </a>
+
+                        <button (click)="deleteProduct(p._id)" class="py-2 px-3 font-medium  border border-red-600 rounded hover:border-opacity-60">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            }@empty {
+            <h3 class="text-2xl">No se encontraron productos</h3>
+            }
+
+            @if(productDetail){
+                <app-detail-product [product]="productDetail" (closeDetails)="closeDetails($event)"  ></app-detail-product>
+            }
+
+            }@else{
+            <h1 class="text-2xl">Cargando..</h1>
+            }
+
+
+        </div>
+
+
+    </div>
+</section>

@@ -1,0 +1,40 @@
+services:
+  nodejs:
+    build:
+      context: /api
+      dockerfile: Dockerfile
+    container_name: api
+    environment:
+      - MONGO_URI=mongodb://db:27017/products
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    networks:
+      - node-mongo
+      - node-angular
+
+  mongodb:
+    image: mongo
+    container_name: db
+    ports:
+      - "27017:27017"
+    networks:
+      - node-mongo
+  
+  angular:
+    build:
+      context: /client
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+      - "4200:80"
+    depends_on:
+      - nodejs
+    networks:
+      - node-angular
+
+networks:
+  node-mongo:
+    driver: bridge
+  node-angular:
+    driver: bridge

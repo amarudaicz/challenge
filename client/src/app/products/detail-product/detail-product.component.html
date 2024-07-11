@@ -1,0 +1,37 @@
+<div class="h-screen w-screen bg-white fixed top-0 left-0">
+    <div class="container mx-auto p-4 gap-3 flex flex-col items-center">
+
+        <h1 class="text-3xl font-bold mr-3">
+            {{product.name}}
+        </h1>
+
+        <img class="w-[150px] rounded" [src]="product.image" [alt]="product.name">
+
+
+        <div class="flex flex-col w-fit gap-2">
+            <h2 class="font-medium">Precio: {{product.price | currency}}</h2>
+            <h2 class="font-medium">Tipo: {{product.type}}</h2>
+            <h2 class="font-medium">Ingredientes: {{product.ingredients.join(', ')}}</h2>
+
+            @if(product.isPromotion && product.discount) {
+                <h2 class="font-medium">Promoción: {{product.isPromotion ? 'Si' : 'No'}}</h2>
+            <h2 class="font-medium">Descuento: {{product.discount}}%</h2>
+            }
+
+            <h2 class="font-medium">Estado: {{product.status ? 'Activo' : 'Inactivo'}}</h2>
+
+            <div class="flex items-center gap-3  mt-4">
+                <button (click)="closeDetails.emit(true)" class="py-2 px-4 text-white rounded bg-blue-600 font-medium">Salir</button>
+                <a [routerLink]="['edit', product._id]" class="py-2 px-3 font-medium border border-neutral-800 rounded hover:bg-opacity-60">
+                    Editar
+                </a>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</div>

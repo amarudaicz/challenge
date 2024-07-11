@@ -1,0 +1,25 @@
+<section class="max-w-[900px] mx-auto p-4">
+    <h1 class="mb-3 text-3xl text-center font-bold ">Editar producto</h1>
+
+    <a routerLink="/" class="py-2 px-4 rounded bg-blue-600 text-white mb-2 block w-fit">Lista completa</a>
+
+    <div class="">
+        @if(success){
+        <span class="p-2 mb-2 block w-fit border-l-4 border-l-green-500 bg-green-200 rounded">
+            Producto actualizado correctamente
+        </span>
+        }@else if (failed) {
+        <span class="p-2 mb-2 block w-fit border-l-4 border-l-red-500 bg-red-300 rounded">
+            Ocurrió un error al actualizar el producto
+        </span>
+        }
+
+    </div>
+
+    @if(product){
+        <app-form-new-edit [product]="product" (formSubmit)="putFormValue($event)"></app-form-new-edit>
+    } @else {
+        <h2 class="text-2xl">Cargando...</h2>
+    }
+
+</section>
