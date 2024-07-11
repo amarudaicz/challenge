@@ -15,7 +15,6 @@ WORKDIR /
 
 COPY package.json yarn.lock ./
 COPY --from=build /dist ./dist
-
 RUN yarn
 
 EXPOSE 3000

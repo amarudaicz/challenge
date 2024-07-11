@@ -14,7 +14,7 @@ FROM nginx:alpine
 
 WORKDIR /app
 
-COPY . /app
+COPY . .
 COPY --from=build /app/dist/client/browser/ /app/dist
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
