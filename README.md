@@ -2,7 +2,7 @@
 
 ## build project from docker-compose.yaml 
 ```
-docker-build up --build
+docker-compose up --build
 ```  
 ## open app in browser => http://localhost:4200
 
